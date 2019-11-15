@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/dynamic/dynamic",
+    "pages/new-dynamic/new-dynamic",
+    "pages/uni-feedback/uni-feedback"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "新闻资讯",
+    "navigationBarBackgroundColor": "#2F85FC",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "color": "#444444",
+    "selectedColor": "#FF80AB",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/dynamic/dynamic",
+        "text": "动态",
+        "iconPath": "static/home.png",
+        "selectedIconPath": "static/home-active.png"
+      },
+      {
+        "pagePath": "pages/list/list",
+        "text": "新闻",
+        "iconPath": "static/hot-0.png",
+        "selectedIconPath": "static/hot-1.png"
+      },
+      {
+        "pagePath": "pages/center/center",
+        "text": "我的",
+        "iconPath": "static/center.png",
+        "selectedIconPath": "static/center-active.png"
+      }
+    ]
+  },
+  "nvue": {
+    "pages": {
+      "pages/list/list.html": {
+        "window": {
+          "usingComponents": {}
+        },
+        "nvue": true
+      },
+      "pages/detail/detail.html": {
+        "window": {
+          "usingComponents": {}
+        },
+        "nvue": true
+      },
+      "pages/center/center.html": {
+        "window": {
+          "usingComponents": {}
+        },
+        "nvue": true
+      },
+      "pages/bbs-detail/bbs-detail.html": {
+        "window": {
+          "usingComponents": {}
+        },
+        "nvue": true
+      }
+    }
+  },
+  "nvueCompiler": "uni-app",
+  "renderer": "auto",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "xinwen",
+  "compilerVersion": "2.3.7",
+  "usingComponents": {}
+}
