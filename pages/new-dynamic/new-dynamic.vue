@@ -58,7 +58,8 @@
                 sendDate: {
                     score: 0,
                     content: "",
-                    contact: ""
+                    contact: "",
+										imgs: []
                 }
             }
         },
@@ -95,13 +96,33 @@
                     sourceType: ["camera", "album"],
                     sizeType: ["compressed"],
                     count: 8 - this.imageList.length,
-                    success: (res) => {
-                        this.imageList = this.imageList.concat(res.tempFilePaths);
+                    success: (json) => {
+										let tempFilePaths = json.tempFilePaths;
+										 tempFilePaths.forEach(item =>{
+											 uni.uploadFile({
+											   url: this.locallPath + "/BBS/uploads",
+											   filePath: item,
+											 	 name: 'file',
+											     success: (res) => {
+											         if (res.statusCode === 200) {
+											 					  console.log(res);
+											 						this.imageList.push(item);
+																	this.sendDate.imgs.push(JSON.parse(res.data)._id);
+											         }
+											     },
+											     fail: (res) => {
+											         uni.showToast({
+											             title: "失败",
+											             icon:"none"
+											         });
+											     }
+											 });
+										 })
                     }
                 })
             },
             chooseStar(e) { //点击评星
-                this.sendDate.score = e;
+              this.sendDate.score = e;
             },
             previewImage() { //预览图片
                 uni.previewImage({
@@ -109,52 +130,33 @@
                 });
             },
             send() { //发送反馈
-						    console.log(this.locallPath)
-                console.log(JSON.stringify(this.sendDate));
-                let imgs = this.imageList.map((value, index) => {
-                    return {
-                        name: "image" + index,
-                        uri: value
-                    }
-                })
-								console.log(imgs)
-								uni.request({
-									url: this.locallPath + '/upload',
-									method: 'POST',
-									data: {
-										files: imgs,
-										formData: this.sendDate
-									},
-									success: (res) => {
-										console.log(res);
-									}
-								})
-                uni.uploadFile({
-                   url: this.locallPath + "/upload",
-                  files: imgs,
-									header: { 'Content-Type': "multipart/form-data" },
-                  formData: this.sendDate,
-                    success: (res) => {
-                        if (res.statusCode === 200) {
-                            uni.showToast({
-                                title: "反馈成功!"
-                            });
-                            this.imageList = [];
-                            this.sendDate = {
-                                score: 0,
-                                content: "",
-                                contact: ""
-                            }
-                        }
-                    },
-                    fail: (res) => {
-                        uni.showToast({
-                            title: "失败",
-                            icon:"none"
-                        });
-                        console.log(res)
-                    }
-                });
+						 console.log(this.sendDate)
+				     uni.request({
+				     	url: this.locallPath + '/BBS/createDynamic',
+							data: this.sendDate,
+							method: 'POST',
+							success: (res) => {
+								console.log(res);
+								const { code } = res.data;
+								if(code === 1) {
+									uni.showToast({
+										title: '创建动态成功！'
+									});
+									this.sendDate = {
+                    score: 0,
+                    content: "",
+                    contact: "",
+										imgs: []
+                  }
+								}
+							},
+							fail: (res) => {
+								uni.showToast({
+								    title: "失败",
+								    icon:"none"
+								});
+							}
+				     })
             }
         }
     }

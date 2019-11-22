@@ -9,7 +9,7 @@ const store = new Vuex.Store({
 		loginProvider: "",
 		openid: null,
 		testvuex:false,
-		locallPath: 'http://10.222.10.51'
+		locallPath: 'http://10.222.10.51:8080'
 	},
 	mutations: {
 		login(state, provider) {

@@ -82,9 +82,10 @@
         "setting" : {
             "urlCheck" : false,
             "es6" : true,
-            "postcss" : false
+            "postcss" : true,
+            "minified" : true
         },
-        "usingComponents" : true,
+        "usingComponents" : false,
         "permission" : {}
     },
     "mp-alipay" : {

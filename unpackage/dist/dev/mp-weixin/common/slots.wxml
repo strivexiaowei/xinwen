@@ -1,0 +1,6 @@
+<import src="/components/uni-swiper-dot/uni-swiper-dot.vue.wxml" />
+<import src="/components/uni-fab/uni-fab.vue.wxml" />
+<import src="/common/slots.wxml" />
+
+<template name="M6c9c070b-default-6c9c070b-1"><swiper class="_swiper M6c9c070b swiper-box" bindchange="handleProxy" data-eventid="{{'6c9c070b-0'}}" data-comkey="{{$k}}"><swiper-item wx:key="index" key="{{index}}" wx:for="{{info}}" wx:for-index="index" wx:for-item="item" class="_swiper-item M6c9c070b"><view class="_view M6c9c070b swiper-item {{item.colorClass}}"><image src="{{item.url}}" mode="aspectFill" class="_image M6c9c070b"></image></view></swiper-item></swiper></template>
+
