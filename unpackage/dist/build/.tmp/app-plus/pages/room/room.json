@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "聊天室",
+  "usingComponents": {
+    "chat-input": "/components/chatinput",
+    "message-show": "/components/messageshow"
+  }
+}

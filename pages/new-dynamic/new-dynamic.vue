@@ -133,7 +133,9 @@
 						 console.log(this.sendDate)
 				     uni.request({
 				     	url: this.locallPath + '/BBS/createDynamic',
-							data: this.sendDate,
+							data: {
+								...this.sendDate
+							},
 							method: 'POST',
 							success: (res) => {
 								console.log(res);
@@ -141,6 +143,14 @@
 								if(code === 1) {
 									uni.showToast({
 										title: '创建动态成功！'
+									});
+									uni.switchTab({
+										url: '/pages/dynamic/dynamic',
+										success: function(e) {
+										        var page = getCurrentPages().pop();
+										        if (page == undefined || page == null) return;
+										        page.onLoad();
+										    }
 									});
 									this.sendDate = {
                     score: 0,

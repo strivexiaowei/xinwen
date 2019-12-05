@@ -1,8 +1,19 @@
 {
   "pages": [
     "pages/dynamic/dynamic",
+    "pages/center/center",
     "pages/new-dynamic/new-dynamic",
-    "pages/uni-feedback/uni-feedback"
+    "pages/uni-feedback/uni-feedback",
+    "pages/login/login",
+    "pages/reg/reg",
+    "pages/pwd/pwd",
+    "pages/user/user",
+    "pages/room/room",
+    "pages/accelerometer/accelerometer",
+    "pages/friendsList/friendsList",
+    "pages/friendsDetail/friendsDetail",
+    "pages/friends-search/friends-search",
+    "pages/add-friend/add-friend"
   ],
   "window": {
     "navigationBarTextStyle": "white",
@@ -45,12 +56,6 @@
         "nvue": true
       },
       "pages/detail/detail.html": {
-        "window": {
-          "usingComponents": {}
-        },
-        "nvue": true
-      },
-      "pages/center/center.html": {
         "window": {
           "usingComponents": {}
         },

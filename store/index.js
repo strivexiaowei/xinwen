@@ -5,16 +5,39 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state: {
+		forcedLogin: false,
 		hasLogin: false,
-		loginProvider: "",
+		userInfo: {
+			nickName: '匿名',
+			avatarUrl: '../../static/customerHL.png'
+		},
 		openid: null,
-		testvuex:false,
-		locallPath: 'http://10.222.10.51:8080'
+		testvuex: false,
+		locallPath: 'http://10.222.10.51',
+		// locallPath: 'http://122.51.171.90',
+		wsPath: 'ws://10.222.10.51',
+		// wsPath: 'ws://122.51.171.90',
+		user: {
+			home: {
+				id: 1,
+				name: 'tax',
+				img: 'static/homeHL.png'
+			},
+			customer: {
+				id: 2,
+				name: 'customer',
+				img: 'static/customerHL.png'
+			}
+		},
+		updated:function(){
+			console.log('message update:'+ this.scrollTop);
+		},
+		curcontact: null
 	},
 	mutations: {
 		login(state, provider) {
 			state.hasLogin = true;
-			state.loginProvider = provider;
+			state.userInfo = provider;
 		},
 		logout(state) {
 			state.hasLogin = false
@@ -28,6 +51,9 @@ const store = new Vuex.Store({
 		},
 		setTestFalse(state){
 			state.testvuex = false
+		},
+		setCurcontact(state, curcontact ) {
+			state.curcontact = curcontact;
 		}
 	},
 	actions: {

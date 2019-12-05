@@ -1,51 +1,58 @@
 <template>
-	<view class="dyname">
-		<uni-swiper-dot :info="info" :current="current" mode="nav" field="content">
-			<swiper class="swiper-box" @change="change">
-				<swiper-item v-for="(item, index) in info" :key="index">
-					<view :class="item.colorClass" class="swiper-item">
-						<image :src="item.url" mode="aspectFill" />
+	<scroll-view style="height: 100vh;" scroll-y="true" @scrolltolower="loaderMore">
+		<view class="dyname">
+			<uni-swiper-dot :info="info" :current="current" mode="nav" field="content">
+				<swiper class="swiper-box" @change="change">
+					<swiper-item v-for="(item, index) in info" :key="index">
+						<view :class="item.colorClass" class="swiper-item">
+							<image :src="item.url" mode="aspectFill" />
+						</view>
+					</swiper-item>
+				</swiper>
+			</uni-swiper-dot>
+			<block v-for="(item, index) in dynList" :key="index">
+				<view v-if="item.type === 'Dy'" class="bbs-card">
+					<image :src="locallPath + '/uploads/images/' + item.imgs[0] + '/view'" mode="widthFix" @tap="previewImage(index)"></image>
+					<view class="card-num-view">{{ item.imgs.length }}P</view>
+					<view class="card-bottom">
+						<view class="title">
+							{{ item.content }}
+						</view>
+						<text class="info-text">黄先伟</text>
+						<text class="info-text">63条评论</text>
+						<text class="info-text">6天前</text>
+						<text class="info-text">收藏</text>
+						<text class="info-text">分享</text>
 					</view>
-				</swiper-item>
-			</swiper>
-		</uni-swiper-dot>
-		<view class="bbs-card">
-			<image src="https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg" mode="widthFix"></image>
-			<view class="card-num-view">4P</view>
-			<view class="card-bottom">
-				<view class="title">
-					今天你博学了吗
 				</view>
-				<text class="info-text">黄先伟</text>
-				<text class="info-text">63条评论</text>
-				<text class="info-text">6天前</text>
-				<text class="info-text">收藏</text>
-				<text class="info-text">分享</text>
-			</view>
-		</view>
-		<view class="bbs-card">
-			<view class="card-bottom">
-				<view class="article-cantent">
-					<view class="img-pic">
-						<image src="https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg" mode="aspectFill"></image>
+				<view v-if="item.type === 'Wz'" class="bbs-card">
+					<view class="card-bottom">
+						<view class="article-cantent">
+							<view class="img-pic">
+								<image src="https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg" mode="aspectFill"></image>
+							</view>
+							<view class="title">你们对fpx夺冠怎么看</view>
+						</view>
+						<text class="info-text">黄先伟</text>
+						<text class="info-text">63条评论</text>
+						<text class="info-text">6天前</text>
+						<text class="info-text">收藏</text>
+						<text class="info-text">分享</text>
 					</view>
-					<view class="title">你们对fpx夺冠怎么看</view>
 				</view>
-				<text class="info-text">黄先伟</text>
-				<text class="info-text">63条评论</text>
-				<text class="info-text">6天前</text>
-				<text class="info-text">收藏</text>
-				<text class="info-text">分享</text>
-			</view>
+			</block>
+			<uni-fab :pattern="pattern" :content="content" :horizontal="horizontal" :vertical="vertical" :direction="direction"
+			 @trigger="trigger"></uni-fab>
 		</view>
-		<uni-fab :pattern="pattern" :content="content" :horizontal="horizontal" :vertical="vertical" :direction="direction"
-		 @trigger="trigger"></uni-fab>
-	</view>
+	</scroll-view>
 </template>
 
 <script>
 	import uniSwiperDot from '@/components/uni-swiper-dot/uni-swiper-dot.vue';
 	import uniFab from '@/components/uni-fab/uni-fab.vue';
+	import {
+		mapState
+	} from 'vuex';
 	export default {
 		components: {
 			uniSwiperDot,
@@ -75,6 +82,7 @@
 				horizontal: 'left',
 				vertical: 'bottom',
 				direction: 'horizontal',
+				page: 1,
 				pattern: {
 					color: '#7A7E83',
 					backgroundColor: '#fff',
@@ -93,8 +101,12 @@
 						text: '发动态',
 						active: false
 					}
-				]
+				],
+				dynList: []
 			}
+		},
+		computed: {
+			...mapState(['locallPath'])
 		},
 		methods: {
 			change(e) {
@@ -106,21 +118,51 @@
 			},
 			trigger(e) {
 				console.log(e);
-				const { index } = e;
-				if(index === 0) {
-					
+				const {
+					index
+				} = e;
+				if (index === 0) {
+
 				} else {
 					uni.navigateTo({
 						url: '../new-dynamic/new-dynamic'
 					});
 				}
+			},
+			getList() {
+				uni.request({
+					url: this.locallPath + '/BBS/dynamicList',
+					method: 'POST',
+					data: {
+						pageSize: 10,
+						page: this.page
+					},
+					success: (res) => {
+						console.log(res);
+						this.dynList = [...this.dynList, ...res.data];
+						this.page = this.page + 1;
+					}
+				})
+			},
+			previewImage(index) { //预览图片
+				uni.previewImage({
+					urls: this.dynList[index].imgs.map(item => this.locallPath + '/uploads/images/' + item + '/view')
+				});
+			},
+			loaderMore() {
+				this.getList();
+				console.log('到底了');
 			}
+		},
+		onLoad() {
+			this.getList();
 		}
 	}
 </script>
 
 <style>
 	page {
+		display: flex;
 		background-color: #f4f4f4;
 	}
 

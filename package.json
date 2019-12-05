@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dcloudio/uni-ui": "^1.0.7"
+    "@dcloudio/uni-ui": "^1.0.7",
+    "chinese-to-pinyin": "^1.1.3"
   }
 }

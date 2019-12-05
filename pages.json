@@ -14,20 +14,71 @@
 			"style": {}
 		}, {
 			"path": "pages/center/center",
-			"style": {}
+			"style": {
+				"navigationStyle": "custom"
+			}
 		},
 		{
 			"path": "pages/bbs-detail/bbs-detail",
 			"style": {}
 		}, {
 			"path": "pages/new-dynamic/new-dynamic",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "新建动态"
+			}
 		},
 		{
 			"path": "pages/uni-feedback/uni-feedback",
 			"style": {}
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		}, {
+			"path": "pages/reg/reg",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		}, {
+			"path": "pages/pwd/pwd",
+			"style": {
+				"navigationBarTitleText": "找回密码"
+			}
+		}, {
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}, {
+			"path": "pages/room/room",
+			"style": {
+				"navigationBarTitleText": "聊天室"
+			}
+		}, {
+			"path": "pages/accelerometer/accelerometer",
+			"style": {}
+		}, {
+			"path": "pages/friendsList/friendsList",
+			"style": {
+				"navigationBarTitleText": "联系人"
+			}
+		}, {
+			"path": "pages/friendsDetail/friendsDetail",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/friends-search/friends-search",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
 		}
-	],
+	    ,{
+            "path" : "pages/add-friend/add-friend",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "新闻资讯",

@@ -1,0 +1,1 @@
+<view><button type="primary" data-event-opts="{{[['tap',[['startAccelerometer',['$event']]]]]}}" bindtap="__e">开始</button><button type="primary">结束</button></view>
